@@ -8,12 +8,6 @@ CREATE TABLE make(
 	addedBy VARCHAR(256)
 );
 
-Create table adminUser(
-	adminId INT PRIMARY KEY auto_increment NOT NULL,
-    adminUsername VARCHAR(30) NOT NULL,
-    adminPassword VARCHAR(30) NOT NULL
-); 
-
 CREATE TABLE model(
 	modelId INT PRIMARY KEY auto_increment NOT NULL,
 	modelName VARCHAR(30) NOT NULL,
@@ -43,9 +37,8 @@ CREATE TABLE cars(
 	isNew boolean NOT NULL,
 	isFeatured boolean NOT NUll,
 	isSold boolean NOT NULL,
-	unitsInStock INT NOT NULL,
 	mileage VARCHAR(7) NOT NULL,
-	modelYear DateTime NOT NULL,
+	modelYear int NOT NULL,
 	VIN VARCHAR(30) NOT NULL,
     makeId INT NOT NULL,
     modelID Int Not Null,
