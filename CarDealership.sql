@@ -1,6 +1,7 @@
 Drop database IF EXISTS carDealership;
 CREATE DATABASE carDealership;
 use carDealership;
+
 CREATE TABLE make(
 	makeId INT PRIMARY KEY auto_increment NOT NULL,
 	makeName VARCHAR(15) NOT NULL,
@@ -17,41 +18,22 @@ CREATE TABLE model(
 	addedBy VARCHAR(256)
 );
 
-CREATE TABLE transmission(
-	transmissionId INT PRIMARY KEY auto_increment NOT NULL,
-	transmissionType VARCHAR(10)
-);
-
-CREATE TABLE color(
-	colorId INT PRIMARY KEY auto_increment NOT NULL,
-	colorName VARCHAR(15)
-);
-
-CREATE TABLE bodyStyle(
-	bodyStyleId INT PRIMARY KEY auto_increment NOT NULL,
-	bodyStyleType VARCHAR(25)
-);
-
 CREATE TABLE cars(
 	carId INT PRIMARY KEY auto_increment NOT NULL,
 	isNew boolean NOT NULL,
 	isFeatured boolean NOT NUll,
 	isSold boolean NOT NULL,
-	mileage VARCHAR(7) NOT NULL,
+	mileage int NOT NULL,
 	modelYear int NOT NULL,
 	VIN VARCHAR(30) NOT NULL,
     makeId INT NOT NULL,
     modelID Int Not Null,
-    transmissionId int Not Null,
-    bodyStyleId INT NOT NULL,
-    bodyColorId INT NOT NULL,
-    intColorId int Not Null,
-	FOREIGN KEY FK_bodyStyleId (bodyStyleId)  REFERENCES bodyStyle(bodyStyleId),
-	FOREIGN KEY FK_transmissionId (transmissionId)  REFERENCES transmission(transmissionId),
+    transmissionType VARCHAR(10),
+    bodyStyleType VARCHAR(25),
+    bodyColorName VARCHAR(15),
+    intColorName VARCHAR(15),
 	FOREIGN KEY FK_makeId (makeId) REFERENCES make(makeId),
 	FOREIGN KEY FK_modelId (modelId)  REFERENCES model(modelId),
-	FOREIGN KEY FK_bodyColorId (bodyColorId) REFERENCES color(colorId),
-	FOREIGN KEY FK_intColorId (intColorId)  REFERENCES color(colorId), 
 	salePrice DECIMAL(7,2) NOT NULL,
 	MSRP DECIMAL(7,2) NOT NULL,
 	vehicleDetails VARCHAR(400) NOT NULL
@@ -63,7 +45,7 @@ CREATE TABLE specials(
 	title VARCHAR(100) NOT NULL
 );
 
-CREATE TABLE purchaseLog(
+CREATE TABLE sales(
 	purchaseLogId INT PRIMARY KEY auto_increment NOT NULL,
 	purchaseType VARCHAR(16) NOT NULL,
 	purchaserName VARCHAR(40) NOT NULL,
@@ -85,4 +67,11 @@ CREATE TABLE customerContact(
 	messageBody VARCHAR(400) NOT NULL,
 	email VARCHAR(50) NULL,
 	phone VARCHAR(15) NULL
+);
+
+create table users(
+	userId INT PRIMARY KEY auto_increment NOT NULL,
+    username VARCHAR(40) NOT NULL,
+    userPassword VARCHAR(40) NOT NULL,
+    isAdmin BOOLEAN DEFAULT false
 );
