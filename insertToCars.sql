@@ -1,0 +1,2 @@
+INSERT INTO cars(carId, isNew, isFeatured, isSold, mileage, modelYear, VIN, makeID, modelId, transmissionType, bodyStyleType, bodyColorName, intColorName, salePrice, MSRP, vehicleDetails) 
+VALUES(1,true,false,false,0,2020,"FDSAFDSA324",1,1,"Manual","SUV","Red","Black",50000,40000,"Test Car");

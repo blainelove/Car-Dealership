@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/account")
 public class AccountController
 {
-    @GetMapping
+    @GetMapping("/login")
     public void login()
     {
 
@@ -15,6 +15,7 @@ public class AccountController
     @PostMapping("/changepassword")
     public String changePassword(@RequestBody String newPassword)
     {
-        return "";
+        String result = String.format("Your new password is %s", newPassword);
+        return result;
     }
 }

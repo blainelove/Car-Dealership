@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class PurchaseLog
+public class Sales
 {
     private int purchaseLogId;
     private String purchaseType;
@@ -20,7 +20,7 @@ public class PurchaseLog
     private LocalDate dateSold;
 
 
-    public PurchaseLog()
+    public Sales()
     {
         this.purchaseLogId = 0;
         this.purchaseType = "";
@@ -36,9 +36,9 @@ public class PurchaseLog
         this.dateSold = null;
     }
 
-    public PurchaseLog(int purchaseLogId, String purchaseType, String purchaserName,
-                       int carId, String addressOne, String addressTwo, String city,
-                       String email, String phone, String zipCode, BigDecimal purchasePrice, LocalDate dateSold)
+    public Sales(int purchaseLogId, String purchaseType, String purchaserName,
+                 int carId, String addressOne, String addressTwo, String city,
+                 String email, String phone, String zipCode, BigDecimal purchasePrice, LocalDate dateSold)
     {
         this.purchaseLogId = purchaseLogId;
         this.purchaseType = purchaseType;
