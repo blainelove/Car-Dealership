@@ -37,7 +37,6 @@ CREATE TABLE cars(
 	isNew boolean NOT NULL,
 	isFeatured boolean NOT NUll,
 	isSold boolean NOT NULL,
-	unitsInStock INT NOT NULL,
 	mileage VARCHAR(7) NOT NULL,
 	modelYear int NOT NULL,
 	VIN VARCHAR(30) NOT NULL,
