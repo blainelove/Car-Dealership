@@ -1,4 +1,6 @@
 package com.sg.cardealership.controller;
 
-public class SalesController {
+public class SalesController
+{
+
 }
