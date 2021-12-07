@@ -1,5 +1,7 @@
 package com.sg.cardealership.dao;
 
+import com.sg.cardealership.mapper.CarMapper;
+import com.sg.cardealership.mapper.SpecialsMapper;
 import com.sg.cardealership.model.Cars;
 import com.sg.cardealership.model.CustomerContact;
 import com.sg.cardealership.model.Specials;
@@ -41,41 +43,4 @@ public class HomeDBDao implements HomeDao{
         return contact;
     }
 
-
-
-    private static final class CarMapper implements RowMapper<Cars> {
-        @Override
-        public Cars mapRow(ResultSet rs, int index) throws SQLException {
-            Cars c = new Cars();
-            c.setCarId(rs.getInt("carId"));
-            c.setNew(rs.getBoolean("isNew"));
-            c.setFeatured(rs.getBoolean("isFeatured"));
-            c.setSold(rs.getBoolean("isSold"));
-            c.setMileage(rs.getInt("mileage"));
-            c.setModelYear(rs.getInt("modelYear"));
-            c.setVIN(rs.getString("VIN"));
-            c.setMakeId(rs.getInt("makeId"));
-            c.setModelId(rs.getInt("modelId"));
-            c.setTransmissionType(rs.getString("transmissionType"));
-            c.setBodyStyleType(rs.getString("bodyStyleType"));
-            c.setBodyColorName(rs.getString("bodyColorName"));
-            c.setIntColorName(rs.getString("intColorName"));
-            c.setSalePrice(rs.getBigDecimal("salePrice"));
-            c.setMsrp(rs.getBigDecimal("MSRP"));
-            c.setVehicleDetails(rs.getString("vehicleDetails"));
-            return c;
-        }
-
-    }
-    private static final class SpecialsMapper implements RowMapper<Specials>{
-        @Override
-        public Specials mapRow(ResultSet rs, int index) throws SQLException{
-            Specials s= new Specials();
-            s.setSpecialsId(rs.getInt("specialsId"));
-            s.setSpecialDetails(rs.getString("specialDetails"));
-            s.setTitle(rs.getString("title"));
-            return s;
-        }
-
-    }
 }

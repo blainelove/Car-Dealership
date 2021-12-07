@@ -5,7 +5,6 @@ import com.sg.cardealership.model.Cars;
 import com.sg.cardealership.model.Make;
 import com.sg.cardealership.model.Model;
 import com.sg.cardealership.model.Specials;
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
