@@ -35,25 +35,6 @@ public class HomeDaoTest {
     @Autowired
     HomeDao homeDao;
 
-    public HomeDaoTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
-
     /**
      * Test of getFeaturedCars method, of class HomeDao.
      */
@@ -68,13 +49,6 @@ public class HomeDaoTest {
         Cars inDb = homeDao.getFeaturedCars().get(0);
 
         assertEquals(car.getCarId(), inDb.getCarId());
-    }
-
-    /**
-     * Test of addContact method, of class HomeDao.
-     */
-    @Test
-    public void testAddContact() {
     }
 
     /**
