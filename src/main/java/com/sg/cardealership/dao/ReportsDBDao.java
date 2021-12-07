@@ -1,7 +1,6 @@
 package com.sg.cardealership.dao;
 
 import com.sg.cardealership.model.Cars;
-import com.sg.cardealership.model.PurchaseLog;
 import com.sg.cardealership.model.Specials;
 import java.sql.ResultSet;
 import java.sql.SQLException;
