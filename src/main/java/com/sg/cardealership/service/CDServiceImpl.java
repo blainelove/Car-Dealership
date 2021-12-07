@@ -4,9 +4,11 @@ import com.sg.cardealership.dao.InventoryDao;
 import com.sg.cardealership.model.Cars;
 import java.util.List;
 import com.sg.cardealership.dao.AdminDao;
+import com.sg.cardealership.dao.ReportsDao;
 import com.sg.cardealership.model.Cars;
 import com.sg.cardealership.model.Make;
 import com.sg.cardealership.model.Model;
+import com.sg.cardealership.model.Sales;
 import com.sg.cardealership.model.Specials;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -19,8 +21,8 @@ public class CDServiceImpl implements CDService
 {   
     InventoryDao inventoryDao;
     AdminDao adminDao;
-    
-    public CDServiceImpl(InventoryDao invDao, AdminDao adminDao)
+    ReportsDao reportsDao;
+    public CDServiceImpl(InventoryDao invDao, AdminDao adminDao,ReportsDao reportsDao)
     {
         this.inventoryDao = invDao;
         this.adminDao = adminDao;
@@ -83,5 +85,16 @@ public class CDServiceImpl implements CDService
     public Specials adminRemoveSpecials(int specialsId)
     {
         return adminDao.removeSpecialById(specialsId);
+    }
+    @Override
+    public List<Cars> getInventory() {
+        
+        return reportsDao.getInventory();
+    }
+
+    @Override
+    public List<Sales> getSales() {
+        
+        return reportsDao.getSales();
     }
 }
