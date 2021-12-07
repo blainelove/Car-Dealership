@@ -2,10 +2,8 @@ package com.sg.cardealership.dao;
 
 import com.sg.cardealership.mapper.CarMapper;
 import com.sg.cardealership.mapper.SpecialsMapper;
-import com.sg.cardealership.model.Cars;
-import com.sg.cardealership.model.Make;
-import com.sg.cardealership.model.Model;
-import com.sg.cardealership.model.Specials;
+import com.sg.cardealership.mapper.userMapper;
+import com.sg.cardealership.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -60,10 +58,10 @@ public class AdminDBDao implements AdminDao
     @Override
     public Cars addVehicle(Cars car)
     {
-        final String sql = "INSERT INTO cars(carId, isNew, isFeatured, isSold, mileage, modelYear, VIN," +
+        final String sql = "INSERT INTO cars(isNew, isFeatured, isSold, mileage, modelYear, VIN," +
                 " makeID, modelId, transmissionType, bodyStyleType, bodyColorName, intColorName, salePrice," +
                 " MSRP, vehicleDetails)" +
-                " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+                " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
 
@@ -73,27 +71,26 @@ public class AdminDBDao implements AdminDao
                     sql,
                     Statement.RETURN_GENERATED_KEYS);
 
-            statement.setInt(1, car.getCarId());
-            statement.setBoolean(2, car.isNew());
-            statement.setBoolean(3, car.isFeatured());
+            statement.setBoolean(1, car.isNew());
+            statement.setBoolean(2, car.isFeatured());
 
-            statement.setBoolean(4, car.isSold());
-            statement.setInt(5, car.getMileage());
-            statement.setInt(6, car.getModelYear());
+            statement.setBoolean(3, car.isSold());
+            statement.setInt(4, car.getMileage());
+            statement.setInt(5, car.getModelYear());
 
-            statement.setString(7, car.getVIN());
-            statement.setInt(8, car.getMakeId());
-            statement.setInt(9, car.getModelId());
+            statement.setString(6, car.getVIN());
+            statement.setInt(7, car.getMakeId());
+            statement.setInt(8, car.getModelId());
 
-            statement.setString(10, car.getTransmissionType());
-            statement.setString(11, car.getBodyStyleType());
-            statement.setString(12, car.getBodyColorName());
+            statement.setString(9, car.getTransmissionType());
+            statement.setString(10, car.getBodyStyleType());
+            statement.setString(11, car.getBodyColorName());
 
-            statement.setString(13, car.getIntColorName());
-            statement.setBigDecimal(14, car.getSalePrice());
-            statement.setBigDecimal(15, car.getMsrp());
+            statement.setString(12, car.getIntColorName());
+            statement.setBigDecimal(13, car.getSalePrice());
+            statement.setBigDecimal(14, car.getMsrp());
 
-            statement.setString(16, car.getVehicleDetails());
+            statement.setString(15, car.getVehicleDetails());
 
             return statement;
         }, keyHolder);
@@ -106,8 +103,8 @@ public class AdminDBDao implements AdminDao
     @Override
     public Make createMake(Make make)
     {
-        final String sql = "INSERT INTO make(makeId, makeName, current_timestamp(), addedBy)\n" +
-                "VALUES (?,?,?,?);";
+        final String sql = "INSERT INTO make(makeName, current_timestamp(), addedBy)\n" +
+                "VALUES (?,?,?);";
 
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
 
@@ -117,9 +114,8 @@ public class AdminDBDao implements AdminDao
                     sql,
                     Statement.RETURN_GENERATED_KEYS);
 
-            statement.setInt(1, make.getMakeId());
-            statement.setString(2, make.getMakeName());
-            statement.setString(3, make.getAddedBy());
+            statement.setString(1, make.getMakeName());
+            statement.setString(2, make.getAddedBy());
 
             return statement;
         }, keyHolder);
@@ -133,8 +129,8 @@ public class AdminDBDao implements AdminDao
     @Override
     public Model createModel(Model model)
     {
-        final String sql = "INSERT INTO model(modelId, modelName, makeId, dateAdded, addedBy)\n" +
-                "VALUES (?,?,?,current_timestamp(),?);";
+        final String sql = "INSERT INTO model(modelName, makeId, dateAdded, addedBy)\n" +
+                "VALUES (?,?,current_timestamp(),?);";
 
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
 
@@ -144,10 +140,9 @@ public class AdminDBDao implements AdminDao
                     sql,
                     Statement.RETURN_GENERATED_KEYS);
 
-            statement.setInt(1, model.getModelId());
-            statement.setString(2, model.getModelName());
-            statement.setInt(3, model.getMakeId());
-            statement.setString(4, model.getAddedBy());
+            statement.setString(1, model.getModelName());
+            statement.setInt(2, model.getMakeId());
+            statement.setString(3, model.getAddedBy());
 
             return statement;
         }, keyHolder);
@@ -160,8 +155,8 @@ public class AdminDBDao implements AdminDao
     @Override
     public Specials addSpecial(Specials special)
     {
-        final String sql = "INSERT INTO specials(specialsId, specialDetails, title)\n" +
-                "VALUES (?,?,?);";
+        final String sql = "INSERT INTO specials(specialDetails, title)\n" +
+                "VALUES (?,?);";
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update((Connection conn) -> {
@@ -170,9 +165,8 @@ public class AdminDBDao implements AdminDao
                     sql,
                     Statement.RETURN_GENERATED_KEYS);
 
-            statement.setInt(1, special.getSpecialsId());
-            statement.setString(2, special.getSpecialDetails());
-            statement.setString(3, special.getTitle());
+            statement.setString(1, special.getSpecialDetails());
+            statement.setString(2, special.getTitle());
 
             return statement;
         }, keyHolder);
@@ -180,5 +174,45 @@ public class AdminDBDao implements AdminDao
         special.setSpecialsId(keyHolder.getKey().intValue());
 
         return special;
+    }
+
+    @Override
+    public List<Users> getUsers()
+    {
+        final String sql = "SELECT * FROM users;";
+        return jdbcTemplate.query(sql, new userMapper());
+    }
+
+    @Override
+    public Users addUser(Users user)
+    {
+        final String sql = "INSERT INTO users(username, userPassword, isAdmin)\n" +
+                "VALUES (?, ?, ?);";
+
+        GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
+
+        jdbcTemplate.update((Connection conn) -> {
+
+            PreparedStatement statement = conn.prepareStatement(
+                    sql,
+                    Statement.RETURN_GENERATED_KEYS);
+
+            statement.setString(1, user.getUsername());
+            statement.setString(2, user.getPassword());
+            statement.setBoolean(3, user.isAdmin());
+
+            return statement;
+        }, keyHolder);
+
+        user.setUserId(keyHolder.getKey().intValue());
+
+        return user;
+    }
+
+    @Override
+    public Users getUserById(int userId)
+    {
+        final String sql = "SELECT * FROM users WHERE userId = ?;";
+        return jdbcTemplate.queryForObject(sql, new userMapper(), userId);
     }
 }

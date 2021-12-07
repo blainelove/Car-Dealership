@@ -36,8 +36,10 @@ public class HomeDBDao implements HomeDao{
 
     @Override
     public CustomerContact addContact(CustomerContact contact){
-        final String INSERT_CONTACT = "INSERT INTO customercontact() VALUES (?,?,?,?)";
-        jdbc.update(INSERT_CONTACT, contact.getContactName(),contact.getMessageBody(),contact.getEmail(),contact.getPhone());
+        final String INSERT_CONTACT = "INSERT INTO customercontact(contactId, contactName, messageBody," +
+                " email, phone) VALUES (?,?,?,?,?)";
+        jdbc.update(INSERT_CONTACT, contact.getContactName(),contact.getMessageBody(),contact.getEmail(),
+                contact.getPhone());
         int newContactId = jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
         contact.setContactId(newContactId);
         return contact;

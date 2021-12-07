@@ -1,9 +1,6 @@
 package com.sg.cardealership.dao;
 
-import com.sg.cardealership.model.Cars;
-import com.sg.cardealership.model.Make;
-import com.sg.cardealership.model.Model;
-import com.sg.cardealership.model.Specials;
+import com.sg.cardealership.model.*;
 
 import java.util.List;
 
@@ -24,4 +21,10 @@ public interface AdminDao
     Specials addSpecial(Specials special);
 
     Specials removeSpecialById(int specialsId);
+
+    List<Users> getUsers();
+
+    Users addUser(Users user);
+
+    Users getUserById(int userId);
 }

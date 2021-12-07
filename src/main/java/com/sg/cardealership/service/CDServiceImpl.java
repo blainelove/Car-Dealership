@@ -1,13 +1,12 @@
 package com.sg.cardealership.service;
 
 import com.sg.cardealership.dao.InventoryDao;
-import com.sg.cardealership.model.Cars;
+import com.sg.cardealership.model.*;
+
 import java.util.List;
 import com.sg.cardealership.dao.AdminDao;
+import com.sg.cardealership.dao.ReportsDao;
 import com.sg.cardealership.model.Cars;
-import com.sg.cardealership.model.Make;
-import com.sg.cardealership.model.Model;
-import com.sg.cardealership.model.Specials;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
@@ -19,11 +18,12 @@ public class CDServiceImpl implements CDService
 {   
     InventoryDao inventoryDao;
     AdminDao adminDao;
-    
-    public CDServiceImpl(InventoryDao invDao, AdminDao adminDao)
+    ReportsDao reportsDao;
+    public CDServiceImpl(InventoryDao invDao, AdminDao adminDao,ReportsDao reportsDao)
     {
         this.inventoryDao = invDao;
         this.adminDao = adminDao;
+        this.reportsDao = reportsDao;
     }
 
     // -------------- Inventory Methods --------------
@@ -41,11 +41,6 @@ public class CDServiceImpl implements CDService
     public Cars getCarDetails(int carId)
     {
        return inventoryDao.getCarDetails(carId);
-    }
-
-    public CDServiceImpl(AdminDao adminDao)
-    {
-        this.adminDao = adminDao;
     }
 
     // -------------- Admin Methods --------------
@@ -83,5 +78,34 @@ public class CDServiceImpl implements CDService
     public Specials adminRemoveSpecials(int specialsId)
     {
         return adminDao.removeSpecialById(specialsId);
+    }
+    @Override
+    public List<Users> adminGetUsers()
+    {
+        return adminDao.getUsers();
+    }
+    @Override
+    public Users adminAddUser(Users user)
+    {
+        return adminDao.addUser(user);
+    }
+    @Override
+    public Users adminGetUserById(int userId)
+    {
+        return adminDao.getUserById(userId);
+    }
+
+    // -------------- Inventory Methods --------------
+    @Override
+    public List<Cars> getInventory() {
+        
+        return reportsDao.getInventory();
+    }
+
+    // -------------- Sales Methods --------------
+    @Override
+    public List<Sales> getSales() {
+        
+        return reportsDao.getSales();
     }
 }
