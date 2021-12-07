@@ -35,6 +35,7 @@ public class AdminController
     @GetMapping("/users")
     public void getUsers()
     {
+
     }
 
     @GetMapping("/adduser")
@@ -51,32 +52,31 @@ public class AdminController
     @GetMapping("/removespecials/{specialsId}")
     public Specials removeSpecials(@PathVariable int specialsId)
     {
-        return null;
+        return dao.getSpecialById(specialsId);
     }
 
 
     @PostMapping("/addvehicle")
     public Cars addVehicle(@RequestBody Cars newCar)
     {
-        return null;
+        return dao.addVehicle(newCar);
     }
-
 
     @PostMapping("/makes")
     public Make createMake(@RequestBody Make make)
     {
-        return null;
+        return dao.createMake(make);
     }
 
     @PostMapping("/models")
     public Model createModel(@RequestBody Model model)
     {
-        return null;
+        return dao.createModel(model);
     }
 
     @PostMapping("/addspecials")
     public Specials addSpecial(@RequestBody Specials special)
     {
-        return null;
+        return dao.addSpecial(special);
     }
 }
