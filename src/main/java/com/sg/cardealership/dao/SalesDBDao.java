@@ -6,8 +6,12 @@ import com.sg.cardealership.model.Sales;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.List;
 
 @Repository
@@ -25,14 +29,36 @@ public class SalesDBDao implements SalesDao{
 
     @Override
     public Sales addSales(Sales sale){
-        final String INSERT_SALE = "INSERT INTO customercontact() VALUES (?,?,?,?,?,?,?,?,?,?,?)";
-        jdbc.update(INSERT_SALE, sale.getPurchaseType(),sale.getPurchaserName(),sale.getCarId(),sale.getAddressOne(),sale.getCity(),sale.getEmail(),sale.getPhone(),
-                sale.getZipCode(), sale.getPurchasePrice());
-        int newSaleId = jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
-        sale.setPurchaseLogId(newSaleId);
+        final String INSERT_SALE = "INSERT INTO sales(purchaseType,purchaserName,carId,addressOne,addressTwo,city,email,phone,zipCode,purchasePrice,dateSold) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+        GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
+
+        jdbc.update((Connection conn) -> {
+
+            PreparedStatement statement = conn.prepareStatement(
+                    INSERT_SALE,
+                    Statement.RETURN_GENERATED_KEYS);
+
+            statement.setString(1, sale.getPurchaseType());
+            statement.setString(2, sale.getPurchaserName());
+            statement.setInt(3, sale.getCarId());
+
+            statement.setString(4, sale.getAddressOne());
+            statement.setString(5, sale.getAddressTwo());
+            statement.setString(6, sale.getCity());
+
+            statement.setString(7, sale.getEmail());
+            statement.setString(8, sale.getPhone());
+            statement.setString(9, sale.getZipCode());
+
+            statement.setBigDecimal(10, sale.getPurchasePrice());
+            statement.setDate(11, java.sql.Date.valueOf(sale.getDateSold()));
+            return statement;
+        }, keyHolder);
+
+        sale.setCarId(keyHolder.getKey().intValue());
+
         return sale;
     }
-
 
 
 }

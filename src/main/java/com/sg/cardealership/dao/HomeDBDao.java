@@ -9,10 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
 
 @Repository
@@ -36,12 +36,27 @@ public class HomeDBDao implements HomeDao{
 
     @Override
     public CustomerContact addContact(CustomerContact contact){
-        final String INSERT_CONTACT = "INSERT INTO customercontact(contactId, contactName, messageBody," +
-                " email, phone) VALUES (?,?,?,?,?)";
-        jdbc.update(INSERT_CONTACT, contact.getContactName(),contact.getMessageBody(),contact.getEmail(),
-                contact.getPhone());
-        int newContactId = jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
-        contact.setContactId(newContactId);
+        final String INSERT_CONTACT = "INSERT INTO customerContact(contactName, messageBody, email, phone) VALUES (?,?,?,?)";
+        GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
+
+        jdbc.update((Connection conn) -> {
+
+            PreparedStatement statement = conn.prepareStatement(
+                    INSERT_CONTACT,
+                    Statement.RETURN_GENERATED_KEYS);
+
+            statement.setString(1, contact.getContactName());
+            statement.setString(2, contact.getMessageBody());
+            statement.setString(3, contact.getEmail());
+
+            statement.setString(4, contact.getPhone());
+
+
+            return statement;
+        }, keyHolder);
+
+        contact.setContactId(keyHolder.getKey().intValue());
+
         return contact;
     }
 
