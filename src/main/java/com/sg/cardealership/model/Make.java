@@ -1,12 +1,12 @@
 package com.sg.cardealership.model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class Make
 {
     private int makeId;
     private String makeName;
-    private LocalDateTime dateAdded;
+    private LocalDate dateAdded;
     private String addedBy;
 
 
@@ -18,7 +18,7 @@ public class Make
         this.addedBy = "";
     }
 
-    public Make(int makeId, String makeName, LocalDateTime dateAdded, String addedBy)
+    public Make(int makeId, String makeName, LocalDate dateAdded, String addedBy)
     {
         this.makeId = makeId;
         this.makeName = makeName;
@@ -42,11 +42,11 @@ public class Make
         this.makeName = makeName;
     }
 
-    public LocalDateTime getDateAdded() {
+    public LocalDate getDateAdded() {
         return dateAdded;
     }
 
-    public void setDateAdded(LocalDateTime dateAdded) {
+    public void setDateAdded(LocalDate dateAdded) {
         this.dateAdded = dateAdded;
     }
 

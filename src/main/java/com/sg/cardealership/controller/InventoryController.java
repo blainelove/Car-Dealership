@@ -14,8 +14,8 @@ public class InventoryController{
     
     private CDService service;
 
-    public InventoryController(CDService service) {
-        
+    public InventoryController(CDService service)
+    {
         this.service = service;
     }
     @GetMapping("/used")
