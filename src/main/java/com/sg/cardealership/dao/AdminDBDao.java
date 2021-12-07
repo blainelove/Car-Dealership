@@ -45,8 +45,16 @@ public class AdminDBDao implements AdminDao
     @Override
     public Specials getSpecialById(int specialId)
     {
-        final String sql = "SELECT * FROM specials WHERE specialId = ?;";
+        final String sql = "SELECT * FROM specials WHERE specialsId = ?;";
         return jdbcTemplate.queryForObject(sql, new SpecialsMapper(), specialId);
+    }
+
+    @Override
+    public Specials removeSpecialById(int specialsId)
+    {
+        final String sql = "DELETE FROM specials WHERE specialsId = ?;";
+
+        return jdbcTemplate.queryForObject(sql, new SpecialsMapper(), specialsId);
     }
 
     @Override

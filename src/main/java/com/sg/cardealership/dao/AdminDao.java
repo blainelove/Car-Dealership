@@ -22,4 +22,6 @@ public interface AdminDao
     Model createModel(Model model);
 
     Specials addSpecial(Specials special);
+
+    Specials removeSpecialById(int specialsId);
 }

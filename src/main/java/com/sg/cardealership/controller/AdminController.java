@@ -52,7 +52,7 @@ public class AdminController
     @GetMapping("/removespecials/{specialsId}")
     public Specials removeSpecials(@PathVariable int specialsId)
     {
-        return dao.getSpecialById(specialsId);
+        return dao.removeSpecialById(specialsId);
     }
 
 
