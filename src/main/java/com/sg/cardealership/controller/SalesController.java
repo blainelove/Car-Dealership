@@ -4,10 +4,7 @@ import com.sg.cardealership.dao.AdminDao;
 import com.sg.cardealership.dao.SalesDao;
 import com.sg.cardealership.model.Cars;
 import com.sg.cardealership.model.Sales;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,8 +24,8 @@ public class SalesController
         return dao.getNotSoldCars();
     }
 
-    @GetMapping("/purchase/{purchaseId}")
-    public Sales getPurchaseById(@PathVariable Sales sale)
+    @PostMapping("/purchase/Id")
+    public Sales getPurchaseById(@RequestBody Sales sale)
     {
         return dao.addSales(sale);
     }
