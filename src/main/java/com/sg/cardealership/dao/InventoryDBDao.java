@@ -55,9 +55,7 @@ public class InventoryDBDao implements InventoryDao{
 
     @Override
     public Cars getCarDetails(int carId) {
-        final String sql = "SELECT carId, isNew, isFeatured, isSold, mileage, modelYear,VIN, makeId, modelId, transmissionType, bodyStyleType, bodyColorName, intColorName, salePrice, MSRP, vehicleDetails; "
-                + "FROM cars WHERE carid = ?;";
-        
+        final String sql = "SELECT carId, isNew, isFeatured, isSold, mileage, modelYear,VIN, makeId, modelId, transmissionType, bodyStyleType, bodyColorName, intColorName, salePrice, MSRP, vehicleDetails FROM cars WHERE carId = ?;";
         Cars foundCar =  jdbcTemplate.queryForObject(sql, new CarMapper(), carId);
         return foundCar;
     }
